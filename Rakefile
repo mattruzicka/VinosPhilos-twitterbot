@@ -20,8 +20,8 @@ end
 task :interact => [:search, :reply, :follow]
 
 def select_query
-  sessions[:selection] += 1 
-  case sessions[:selection]
+  selection = Random.new
+  case selection.rand(1..14)
   when 1 
     @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
     "\"phenomenological\""
@@ -62,7 +62,6 @@ def select_query
     @reply = "That's beautiful! I want to hear more."
     "aesthetic nature"
   when 14
-    sessions[:selection] = 0
     @reply = "Sounds like hogwash... What in the world are you talking about?"
     "\"epistemic -closure\""
   end
