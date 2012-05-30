@@ -27,10 +27,10 @@ def select_query
     "\"phenomenological\""
   when 2
     @reply = "I'm not quite sure I agree. Does the distinction even apply?"
-    "\"normative descriptive\""
+    "normative descriptive"
   when 3
     @reply = "There is no problem, God doesn't exist... boom."
-    "circularity -measuring -bankia"
+    "\"the problem of evil\""
   when 4
     @reply = "Reductio ad absurdum? Maybe you should look up what that means again."
     "reductio ad absurdum"
@@ -41,8 +41,8 @@ def select_query
     @reply = "What do you mean?"
     "reductionist"
   when 7
-    @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
-    "phenomenological"
+    @reply = "Maybe that's a priori, but it also seems synthetic and a bit dishonest."
+    "\"a priori knowledge\" -synthetic"
   when 8
     @reply = "That's not a necessary condition. Do I really need to explain why?"
     "\"is a necessary condition\""
