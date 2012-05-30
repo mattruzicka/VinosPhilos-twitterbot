@@ -20,17 +20,15 @@ end
 task :interact => [:search, :reply, :follow]
 
 def select_query
-  select = Random.new
-  case select.rand(0..13)
-  when 0 
-    @reply = "How is that a tautology?"
-    "tautology"
+  $selection = $selection ||= 0
+  $selection += 1 
+  case $selection
   when 1 
     @reply = "Definitely not a sufficient condition. How is that even a consideration?"
     "\"sufficient condition\""
   when 2
-    @reply = "Wait, why is that a fallacy? I'm not sure I get it..."
-    "\"logical fallacy\" is OR it's OR a"
+    @reply = "I'm not quite sure I agree. Does the distinction even apply?"
+    "\"normative descriptive\""
   when 3
     @reply = "There is no problem, God doesn't exist... boom."
     "circularity -measuring -bankia"
@@ -53,17 +51,21 @@ def select_query
     @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
     "\"necessary condition\""
   when 10
-    @reply = "I'm not quite sure I agree. Does the distinction even apply?"
-    "\"normative descriptive\""
+    @reply = "Wait, why is that a fallacy? I'm not sure I get it..."
+    "\"logical fallacy\" is OR it's OR a"
   when 11
     @reply = "Self-contradictory? I don't think so. Your tweet might be self-contradictory though..."
     "\"Self-contradictory\""
   when 12
-    @reply = "Sounds like hogwash... What in the world are you talking about?"
-    "\"epistemic -closure\""
+    @reply = "How is that a tautology?"
+    "tautology"
   when 13
     @reply = "That's beautiful! I want to hear more."
     "aesthetic nature"
+  when 14
+    $selection = 0
+    @reply = "Sounds like hogwash... What in the world are you talking about?"
+    "\"epistemic -closure\""
   end
 end
 
