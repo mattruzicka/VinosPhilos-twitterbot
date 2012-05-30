@@ -10,17 +10,16 @@ task :search => :environment do
 end
 
 task :reply => :environment do 
-  Twitter.update("#{@status.text}")
-  Twitter.update("#{@reply}")
+  Twitter.update("@#{@status.from_user} #{@reply}", in_reply_to_status_id: @status.id)
 end
 
 task :follow => :environment do 
-  Twitter.follow("mattruzicka")
+  Twitter.follow(@status.from_user)
 end
 
 task :interact => [:search, :reply, :follow]
 
 def query
-  @reply = "are you sure that's a tautology?"
+  @reply = "Are you sure that's a tautology?"
   return "tautology"
 end
