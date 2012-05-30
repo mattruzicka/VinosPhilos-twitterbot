@@ -10,11 +10,11 @@ task :search => :environment do
 end
 
 task :reply => :environment do 
-  Twitter.update("@#{@status.from_user} #{@reply}", in_reply_to_status_id: @status.id)
+  Twitter.update("@#{@status.from_user} #{@reply}", in_reply_to_status_id: @status.id) unless @status.from_user.downcase == "vinosphilos"
 end
 
 task :follow => :environment do 
-  Twitter.follow(@status.from_user)
+  Twitter.follow(@status.from_user) unless @status.from_user.downcase == "vinosphilos"
 end
 
 task :interact => [:search, :reply, :follow]
