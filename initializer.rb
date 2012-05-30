@@ -14,3 +14,6 @@ Twitter.configure do |config|
   config.oauth_token = APP_CONFIG[:twitter][:oauth_token]
   config.oauth_token_secret = APP_CONFIG[:twitter][:oauth_token_secret]
 end
+
+enable :sessions
+set :session, selection: 0

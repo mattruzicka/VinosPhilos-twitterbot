@@ -20,9 +20,8 @@ end
 task :interact => [:search, :reply, :follow]
 
 def select_query
-  $selection = $selection ||= 0
-  $selection += 1 
-  case $selection
+  sessions[:selection] += 1 
+  case sessions[:selection]
   when 1 
     @reply = "Definitely not a sufficient condition. How is that even a consideration?"
     "\"sufficient condition\""
@@ -63,7 +62,7 @@ def select_query
     @reply = "That's beautiful! I want to hear more."
     "aesthetic nature"
   when 14
-    $selection = 0
+    sessions[:selection] = 0
     @reply = "Sounds like hogwash... What in the world are you talking about?"
     "\"epistemic -closure\""
   end
