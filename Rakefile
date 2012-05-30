@@ -23,8 +23,8 @@ def select_query
   sessions[:selection] += 1 
   case sessions[:selection]
   when 1 
-    @reply = "Definitely not a sufficient condition. How is that even a consideration?"
-    "\"sufficient condition\""
+    @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
+    "\"phenomenological\""
   when 2
     @reply = "I'm not quite sure I agree. Does the distinction even apply?"
     "\"normative descriptive\""
@@ -47,8 +47,8 @@ def select_query
     @reply = "That's not a necessary condition. Do I really need to explain why?"
     "\"is a necessary condition\""
   when 9 
-    @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
-    "\"necessary condition\""
+    @reply = "Definitely not a sufficient condition. How is that even a consideration?"
+    "\"sufficient condition\""
   when 10
     @reply = "Wait, why is that a fallacy? I'm not sure I get it..."
     "\"logical fallacy\" is OR it's OR a"
