@@ -63,7 +63,7 @@ def select_query
     "aesthetic nature"
   when 14
     @reply = "Sounds like hogwash... What in the world are you talking about?"
-    "\"epistemic -closure\""
+    "epistemic -closure"
   end
 end
 
