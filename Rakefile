@@ -19,12 +19,13 @@ task :follow => :environment do
   Twitter.follow(@status.from_user) unless @status.from_user.downcase == "vinosphilos"
 end
 
-task :build_dictionary => :environment do 
-  home_timeline = Twitter.user_timeline("VinosPhilos") #Twitter.home_timeline(:count => 200) 
-  
-  home_timeline.each do |status| 
-    File.open('config/dictionary.txt', 'a') do |f|
+task :add_to_dictionary => :environment do 
+  Twitter.home_timeline(:count => 20).each_with_index do |status, index| 
+    unless status.from_user == "VinosPhilos"
+      File.open('config/dictionary.txt', 'a') do |f|
         f.puts(status.text)
+        retweet(status) if index == 20 
+      end
     end
   end
 end
@@ -37,18 +38,20 @@ task :tweet => :environment do
   until tweeted 
     tweet = gabbler.sentence 
     if tweet.length > 30 && tweet.length <= 140
-      puts tweet # Twitter.update(tweet)
+      Twitter.update(tweet)
       tweeted = true
     end
   end
 end
 
+task :all => [:search, :reply, :follow, :add_to_dictionary, :tweet]
 
-
-task :all => [:search, :reply, :follow]
+def retweet(status)
+  Twitter.update("RT @#{status.from_user} #{status.text}")
+end
 
 def select_query
-  case Time.now.hour
+  case (Time.now.hour - 12)
   when 0 
     @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
     "\"phenomenological\""
