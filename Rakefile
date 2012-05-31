@@ -2,10 +2,12 @@ task :environment do
   require File.expand_path(File.join(*%w[ initializer ]), File.dirname(__FILE__))
   require './VinosPhilos'
 end
-
+ 
 task :search => :environment do 
-  Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
-    @status = status
+  unless select_query == nil 
+    Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
+      @status = status
+    end
   end
 end
 
@@ -17,16 +19,44 @@ task :follow => :environment do
   Twitter.follow(@status.from_user) unless @status.from_user.downcase == "vinosphilos"
 end
 
-task :interact => [:search, :reply, :follow]
+task :build_dictionary => :environment do 
+  home_timeline = Twitter.user_timeline("VinosPhilos") #Twitter.home_timeline(:count => 200) 
+  
+  home_timeline.each do |status| 
+    File.open('config/dictionary.txt', 'a') do |f|
+        f.puts(status.text)
+    end
+  end
+end
+
+task :tweet => :environment do
+  gabbler = Gabbler.new
+  dictionary = File.read('config/dictionary.txt')
+  gabbler.learn(dictionary)
+  tweeted = false
+  until tweeted 
+    tweet = gabbler.sentence 
+    if tweet.length > 30 && tweet.length <= 140
+      puts tweet # Twitter.update(tweet)
+      tweeted = true
+    end
+  end
+end
+
+
+
+task :all => [:search, :reply, :follow]
 
 def select_query
-  selection = Random.new
-  case selection.rand(1..14)
+  case Time.now.hour
+  when 0 
+    @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
+    "\"phenomenological\""
   when 1 
     @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
     "\"phenomenological\""
   when 2
-    @reply = "I'm not quite sure I agree. Does the distinction even apply?"
+    @reply = "I'm not quite sure I agree. Does that distinction even apply?"
     "normative descriptive"
   when 3
     @reply = "There is no problem, God doesn't exist... boom."
@@ -64,6 +94,36 @@ def select_query
   when 14
     @reply = "Sounds like hogwash... What in the world are you talking about?"
     "epistemic -closure"
+  when 15
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 16
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 17
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 18
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 19
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 20
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 21
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 22
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 23
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
+  when 24
+    # @reply = "Sounds like hogwash... What in the world are you talking about?"
+    # "epistemic -closure"
   end
 end
-
+    
