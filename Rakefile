@@ -2,7 +2,10 @@ task :environment do
   require File.expand_path(File.join(*%w[ initializer ]), File.dirname(__FILE__))
   require './VinosPhilos'
 end
- 
+
+# import all tasks/files endeding in .rake 
+Dir.glob('tasks/*.rake').each { |r| import r }
+
 task :search => :environment do 
   unless select_query == nil 
     Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
@@ -12,49 +15,35 @@ task :search => :environment do
 end
 
 task :reply => :environment do 
-  Twitter.update("@#{@status.from_user} #{@reply}", in_reply_to_status_id: @status.id) unless @status.from_user.downcase == "vinosphilos"
+  Twitter.update("@#{@status.from_user} #{@reply}", in_reply_to_status_id: @status.id) unless @status.from_user.downcase == "vinosphilos" || @status == "" 
 end
 
 task :follow => :environment do 
   Twitter.follow(@status.from_user) unless @status.from_user.downcase == "vinosphilos"
 end
 
-task :add_to_dictionary => :environment do 
-  Twitter.home_timeline(:count => 20).each_with_index do |status, index| 
-    unless status.from_user == "VinosPhilos"
-      File.open('config/dictionary.txt', 'a') do |f|
-        f.puts(status.text)
-        retweet(status) if index == 20 
-      end
-    end
-  end
-end
-
 task :tweet => :environment do
-  gabbler = Gabbler.new
-  dictionary = File.read('config/dictionary.txt')
-  gabbler.learn(dictionary)
   tweeted = false
   until tweeted 
-    tweet = gabbler.sentence 
+    tweet = GABBLER.sentence 
     if tweet.length > 30 && tweet.length <= 140
-      Twitter.update(tweet)
+      puts tweet#Twitter.update(tweet)
       tweeted = true
     end
   end
 end
 
-task :all => [:search, :reply, :follow, :add_to_dictionary, :tweet]
+task :all => [:search, :reply, :follow, :augment_dictionary, :tweet]
 
 def retweet(status)
   Twitter.update("RT @#{status.from_user} #{status.text}")
 end
 
 def select_query
-  case (Time.now.hour - 12)
+  case (Time.now.hour)
   when 0 
-    @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
-    "\"phenomenological\""
+    @reply = "C'mon now... you high?"
+    "construct OR constructs mind reality OR human OR thoughts"
   when 1 
     @reply = "Wow, interesting. I definitely have questions though. Think you can help?"
     "\"phenomenological\""
@@ -98,35 +87,35 @@ def select_query
     @reply = "Sounds like hogwash... What in the world are you talking about?"
     "epistemic -closure"
   when 15
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "That sounds like the same thing as saying nothing... what?"
+    "subjective existence"
   when 16
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "Universal law? In what universe is that..?"
+    "\"universal law\""
   when 17
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "Categorical imperative?.."
+    "\"categorical imperative\""
   when 18
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "That's interesting, but it hardly seems definsible. Please elaborate."
+    "relativism truth OR truths OR objective"
   when 19
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "Speaking of a "
+    "defensible OR logical position"
   when 20
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+     @reply = "Speaking of dialectics, please explain to me what you mean."
+     "dialectic"
   when 21
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "What, exactly, is being said here?"
+    "determinism \"free will\" -exam -PPT -cards"
   when 22
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "Hmm... in what way?"
+    "aspects logic OR reality"
   when 23
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "Maybe that's true of your mind..."
+    "\"the mind\" -my is -of -have -fuck -clear"
   when 24
-    # @reply = "Sounds like hogwash... What in the world are you talking about?"
-    # "epistemic -closure"
+    @reply = "Interesting, I'd say you're on the right track. Please say more."
+    "\"ethical systems\" OR \"ethical system\""
   end
 end
     
