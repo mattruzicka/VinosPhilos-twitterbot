@@ -1,13 +1,8 @@
-task :load_dictionary => :environment do
-  dictionary = File.read('config/dictionary.txt')
-  GABBLER.learn(dictionary)
-end
-
 task :augment_dictionary => :environment do 
-  home_timeline = Twitter.home_timeline(:count => 200)
+  home_timeline = Twitter.home_timeline(count: 50)
   File.open('config/dictionary.txt', 'a') do |f|
     home_timeline.each do |status|
-      f.puts(filter_tweet(status.full_text)) unless status.from_user == "VinosPhilos"
+      f.puts(filter_tweet(status.full_text)) unless status.is_from_self?
     end
   end
 end
