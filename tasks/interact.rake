@@ -7,17 +7,14 @@ task :retweet => :environment do
   end
 end
 
-task :search => :environment  do 
+task :search_and_reply => :environment  do 
   unless select_query == nil 
     Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
       @status = status
     end
   end
-end
-
-task :reply => :environment do 
   Twitter.update("@#{@status.from_user} #{@reply}", in_reply_to_status_id: @status.id) unless @status.is_from_self?
-  sleep some_time 
+  sleep some_time
 end
 
 task :follow => :environment do 
