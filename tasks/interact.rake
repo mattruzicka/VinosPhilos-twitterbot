@@ -7,7 +7,7 @@ task :retweet => :environment do
   end
 end
 
-task :search_and_reply => :environment  do 
+task :search_and_reply => :environment do 
   unless select_query == nil 
     Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
       @status = status
