@@ -61,7 +61,7 @@ def select_query
     @reply = "That's interesting, but it hardly seems definsible. Please elaborate."
     "relativism truth OR truths OR objective"
   when 19
-    @reply = "Speaking of a "
+    @reply = "Are you sure you're using the right words there?"
     "defensible OR logical position"
   when 20
      @reply = "Speaking of dialectics, please explain to me what you mean."
