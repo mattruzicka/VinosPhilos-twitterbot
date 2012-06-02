@@ -9,7 +9,6 @@ end
 
 def filter_tweet(status)
   status.gsub!(/RT\s*@\S*\s*/i, "")
-  status.gsub!(/@\S*/, "philosophy")
   status.gsub!(/http\S*/i, "")
   status.gsub!(/\sRT/i, ".")
   status.gsub!(/&\S*/, "")
