@@ -1,4 +1,5 @@
 task :retweet => :environment do
+  next unless Time.now.hour % 3 == 0
   Twitter.home_timeline(:count => 1).each do |status|
     tweet = "RT @#{status.from_user} #{status.full_text}"
     Twitter.update(tweet) if tweet.length <= 140 &&  status.is_from_self? == false
@@ -6,7 +7,7 @@ task :retweet => :environment do
   end
 end
 
-task :search => :environment do 
+task :search => :environment  do 
   unless select_query == nil 
     Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
       @status = status
@@ -24,6 +25,7 @@ task :follow => :environment do
 end
 
 task :tweet => :environment do
+  next unless Time.now.hour % 2 == 0
   tweeted = false
   until tweeted 
     tweet = GABBLER.sentence 
