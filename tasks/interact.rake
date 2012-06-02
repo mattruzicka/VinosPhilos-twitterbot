@@ -33,7 +33,8 @@ task :tweet => :environment do
   end
 end
 
-public 
+public
+ 
   def is_from_self?
     self.from_user.downcase == "vinosphilos"
   end
@@ -41,6 +42,4 @@ public
   def some_time
     (5..30).to_a.sample
   end
-    
-     
     
