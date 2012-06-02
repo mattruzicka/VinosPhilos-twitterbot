@@ -27,7 +27,7 @@ task :tweet => :environment do
   until tweeted 
     tweet = GABBLER.sentence 
     if tweet.length > 30 && tweet.length <= 140
-      puts witter.update(tweet)
+      Twitter.update(tweet)
       tweeted = true
     end
   end
