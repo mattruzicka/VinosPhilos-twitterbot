@@ -1,8 +1,8 @@
 
 def select_query
-  # time = Time.now.hour
-  # clock = (0..24).to_a.push(0, 1)
-  case (Time.now.utc.hour) # clock[(time..time+2).to_a.sample]
+  time = Time.now.hour
+  clock = (0..24).to_a.push(0, 1)
+  case (clock[(time..time+2).to_a.sample])
   when 0 
     @reply = "C'mon now... you high?"
     "construct OR constructs mind reality OR human OR thoughts"
