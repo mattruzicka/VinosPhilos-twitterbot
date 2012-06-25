@@ -13,8 +13,8 @@ def select_query
     @reply = "I'm not quite sure I agree. Does that distinction even apply?"
     "normative descriptive"
   when 3
-    @reply = "There is no problem, God doesn't exist... boom."
-    "\"the problem of evil\""
+    @reply = "Hmm... can you explain to me your interpretation of the allegory?"
+    "allegory cave"
   when 4
     @reply = "Reductio ad absurdum? Maybe you should look up what that means again."
     "reductio ad absurdum"

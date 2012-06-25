@@ -1,6 +1,6 @@
 
 task :augment => :environment do 
-  home_timeline = Twitter.home_timeline(count: 1)
+  home_timeline = Twitter.home_timeline(count: 200)
   File.open('config/dictionary.txt', 'a') do |f|
     home_timeline.each do |status|
       f.puts(filter_tweet(status.full_text.downcase)) unless status.is_from_self?
