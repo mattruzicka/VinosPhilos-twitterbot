@@ -1,0 +1,1 @@
+I wrote a little blurb about this thing here - http://www.bfbifocals.com/portfolio/vinosphilos/
