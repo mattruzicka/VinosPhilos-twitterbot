@@ -6,4 +6,4 @@ end
 Dir.glob('tasks/*.rake').each { |r| import r } # import all tasks/files.rake
 
 task :dictionary => [:augment, :load]
-task :interact => [:search_reply_follow, :tweet, :retweet]
+task :interact => [:search_reply_follow, :tweet]
