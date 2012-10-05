@@ -1,5 +1,5 @@
 task :search_reply_follow => :environment do 
-#  next unless Time.now.utc.hour % 3 == 0
+  next unless Time.now.utc.hour % 3 == 0
   unless select_query == nil 
     Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
       @status = status
