@@ -1,9 +1,9 @@
 development: &non_production_settings
   :twitter:
-    :consumer_key: "ofDyR4TkFsBCFmJfGqvDhA"
-    :consumer_secret: "GZvgy9kkhyBFwmgpjvV95Tqu0B6kNcE8AfWZO0fBLU"
-    :oauth_token: "592268211-FOrUbwM6ZOX2jzEqXOSu5bfj84zEuNl5OEFE0TaW"
-    :oauth_token_secret: "fH8nKOAjvtE60K1QtM3W1RPtxDTfTkNwRmttUuk2tc"
+    :consumer_key: "YOUR TWITTER CONSUMER KEY"
+    :consumer_secret: "YOUR TWITTER CONSUMER SECRET"
+    :oauth_token: "YOUR TWITTER OAUTH TOKEN"
+    :oauth_token_secret: "YOUR TWITTER OAUTH TOEKN SECRET"
   :site:
     :title: "VinosPhilos"
     :address: "http://localhost:9393/"
