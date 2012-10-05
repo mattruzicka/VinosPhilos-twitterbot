@@ -22,7 +22,7 @@ def select_query
     @reply = "In what way? I don't see the circularity."
     "circular logic"
   when 6
-    @reply = "What do you mean?"
+    @reply = "Reductionist? What do you mean?"
     "reductionist"
   when 7
     @reply = "Maybe that's a priori, but it also seems synthetic and a bit dishonest."

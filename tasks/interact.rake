@@ -1,5 +1,5 @@
 task :search_reply_follow => :environment do 
-  next unless Time.now.utc.hour % 3 == 0
+#  next unless Time.now.utc.hour % 3 == 0
   unless select_query == nil 
     Twitter.search("#{select_query}", :rpp => 1, :result_type => "recent").map do |status|
       @status = status
@@ -8,6 +8,7 @@ task :search_reply_follow => :environment do
   unless @status.is_from_self?
     Twitter.update("@#{@status.from_user} #{@reply}", in_reply_to_status_id: @status.id) 
     sleep some_time
+    Twitter.follow(@status.from_user)
   end
 end
 
